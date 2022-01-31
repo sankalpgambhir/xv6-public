@@ -89,3 +89,47 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// print hello to the screen
+int
+sys_hello(void)
+{
+  cprintf("Hello\n");
+  return 0;
+}
+
+// prints an input string to the screen
+int
+sys_helloYou(void)
+{
+  char* inp = (char*)0;
+
+  if(argstr(0, &inp) < 0){
+    return -1;
+  }
+
+  cprintf(inp);
+  cprintf("\n");
+  return 0;
+}
+
+// prints number of active processes right now
+int 
+sys_getNumProc(void)
+{
+  return activeProc();
+}
+
+// prints the ancestry of a process
+int 
+sys_showAncestry(void)
+{
+  struct proc * pr = myproc();
+
+  while(!isInit(pr->pid)){
+    pr = pr->parent;
+    cprintf("%d\n", pr->pid);
+  }
+
+  return 0;
+}

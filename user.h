@@ -24,6 +24,12 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 
+// custom calls
+int hello(void);
+int helloYou(char*);
+int getNumProc(void);
+int showAncestry(void);
+
 // ulib.c
 int stat(const char*, struct stat*);
 char* strcpy(char*, const char*);

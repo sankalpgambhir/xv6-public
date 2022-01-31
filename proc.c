@@ -532,3 +532,31 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+// get number of active processes
+int
+activeProc(void)
+{
+  int active = 0;
+
+  acquire(&ptable.lock);
+
+  struct proc * p;
+
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if (!(p->state == UNUSED)){
+      active++;
+    }
+  }
+
+  release(&ptable.lock);
+
+  return active;
+}
+
+// check if you are init
+int
+isInit(const int pid){
+  return initproc->pid == pid;
+}
+

@@ -29,3 +29,9 @@ SYSCALL(getpid)
 SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)
+
+# custom syscalls
+SYSCALL(hello)
+SYSCALL(helloYou)
+SYSCALL(getNumProc)
+SYSCALL(showAncestry)
