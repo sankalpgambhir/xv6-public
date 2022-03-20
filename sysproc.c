@@ -145,3 +145,9 @@ int
 sys_numpp(void){
   return 0;
 }
+
+// creates a new mapping in virtual space of caller
+int
+sys_mmap(void){
+  return 0;
+}

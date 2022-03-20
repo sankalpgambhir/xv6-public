@@ -109,6 +109,7 @@ extern int sys_getNumProc(void);
 extern int sys_showAncestry(void);
 extern int sys_numvp(void);
 extern int sys_numpp(void);
+extern int sys_mmap(void);
 
 
 static int (*syscalls[])(void) = {
@@ -140,6 +141,7 @@ static int (*syscalls[])(void) = {
 [SYS_showAncestry]  sys_showAncestry,
 [SYS_numvp]         sys_numvp,
 [SYS_numpp]         sys_numpp,
+[SYS_mmap]          sys_mmap,
 };
 
 void

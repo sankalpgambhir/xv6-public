@@ -28,3 +28,4 @@
 #define SYS_showAncestry    25
 #define SYS_numvp           26
 #define SYS_numpp           27
+#define SYS_mmap            28
