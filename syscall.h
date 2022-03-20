@@ -26,3 +26,5 @@
 #define SYS_helloYou        23
 #define SYS_getNumProc      24
 #define SYS_showAncestry    25
+#define SYS_numvp           26
+#define SYS_numpp           27

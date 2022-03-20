@@ -133,3 +133,15 @@ sys_showAncestry(void)
 
   return 0;
 }
+
+// returns number of logical pages in userspace
+int
+sys_numvp(void){
+  return 0;
+}
+
+// returns number of physical pages in userspace
+int
+sys_numpp(void){
+  return 0;
+}

@@ -107,6 +107,8 @@ extern int sys_hello(void);
 extern int sys_helloYou(void);
 extern int sys_getNumProc(void);
 extern int sys_showAncestry(void);
+extern int sys_numvp(void);
+extern int sys_numpp(void);
 
 
 static int (*syscalls[])(void) = {
@@ -136,6 +138,8 @@ static int (*syscalls[])(void) = {
 [SYS_helloYou]      sys_helloYou,
 [SYS_getNumProc]    sys_getNumProc,
 [SYS_showAncestry]  sys_showAncestry,
+[SYS_numvp]         sys_numvp,
+[SYS_numpp]         sys_numpp,
 };
 
 void
