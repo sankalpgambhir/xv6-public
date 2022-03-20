@@ -137,17 +137,64 @@ sys_showAncestry(void)
 // returns number of logical pages in userspace
 int
 sys_numvp(void){
-  return 0;
+
+  struct proc* pr = myproc();
+
+  return ((pr->sz / PGSIZE) + 1);
 }
 
 // returns number of physical pages in userspace
 int
 sys_numpp(void){
-  return 0;
+
+  struct proc* pr = myproc();
+  uint count = 0;
+  uint vcount = (pr->sz / PGSIZE) + 1;
+  pde_t* pde = pr->pgdir;
+  pte_t* pteptr = (pte_t*)P2V(PTE_ADDR(*pde));
+
+  // while not reached guard
+  while (vcount > 0){
+
+    if(*pteptr == 0){
+      pde++;
+      pteptr = (pte_t*)P2V(PTE_ADDR(*pde));
+
+      if(*pde == 0){
+        break;
+      }
+
+      continue;
+    }
+
+    // cprintf("Found page 0x%x\n", *pteptr);
+
+    if(*pteptr & PTE_P){
+      count++;
+    }
+    
+    pteptr++;
+    vcount--;
+
+  }
+
+  return count;
 }
 
 // creates a new mapping in virtual space of caller
 int
 sys_mmap(void){
-  return 0;
+  int inpmemsize = -1;
+  argint(0, &inpmemsize);
+
+  if((inpmemsize < 0) || (inpmemsize % PGSIZE != 0)){
+    return 0;
+  }
+
+  uint addr = myproc()->sz;
+
+  // allocate virtual pages
+  procIncreaseSize(myproc(), inpmemsize);
+
+  return addr;
 }

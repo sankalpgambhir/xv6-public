@@ -560,3 +560,22 @@ isInit(const int pid){
   return initproc->pid == pid;
 }
 
+// increases proc memory size
+int
+procIncreaseSize(struct proc* pr, const int incr){
+
+  acquire(&ptable.lock);
+
+  // maybe write over the ptes
+  // JANK, TODO fix
+  // pde_t* pgdir = pr->pgdir;
+  // pte_t* pteptr = (pte_t*)P2V(PTE_ADDR(*pgdir));
+  // memset(pteptr + PGROUNDUP(pr->sz), 0, sizeof(pte_t*) * PGROUNDUP(incr));
+
+  pr->sz += incr;
+
+  release(&ptable.lock);
+
+  return 0;
+}
+

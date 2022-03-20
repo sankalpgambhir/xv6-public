@@ -31,7 +31,7 @@ int getNumProc(void);
 int showAncestry(void);
 int numvp(void);
 int numpp(void);
-int mmap(void);
+int mmap(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

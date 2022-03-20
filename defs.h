@@ -122,6 +122,7 @@ void            wakeup(void*);
 void            yield(void);
 int             activeProc(void);
 int             isInit(const int);
+int             procIncreaseSize(struct proc*, const int);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

@@ -14,6 +14,8 @@ extern uint vectors[];  // in vectors.S: array of 256 entry pointers
 struct spinlock tickslock;
 uint ticks;
 
+extern int mappages(pde_t *pgdir, void *va, uint size, uint pa, int perm);
+
 void
 tvinit(void)
 {
@@ -76,6 +78,31 @@ trap(struct trapframe *tf)
     cprintf("cpu%d: spurious interrupt at %x:%x\n",
             cpuid(), tf->cs, tf->eip);
     lapiceoi();
+    break;
+  case T_PGFLT:
+    uint va = rcr2();
+    va -= va % PGSIZE;
+    pde_t* pgdir = myproc()->pgdir;
+    
+    cprintf("va: 0x%x, pdx:0x%x, ptx: 0x%x\n", va, PDX(va), PTX(va));
+
+    char* mem = kalloc();
+    if(mem == 0){
+      cprintf("custom allocuvm out of memory\n");
+      break;
+    }
+    memset(mem, 0, PGSIZE);
+    if(mappages(pgdir, (char*)va, PGSIZE, V2P(mem), PTE_W|PTE_U) < 0){
+      cprintf("custom allocuvm out of memory (2)\n");
+      kfree(mem);
+      break;
+    }
+
+    // if (newsz <= myproc()->sz){
+    //   cprintf("alloc go well? : %d\n", allocuvm(myproc()->pgdir, oldsz, newsz));
+    //   break;
+    // }
+
     break;
 
   //PAGEBREAK: 13
