@@ -140,7 +140,7 @@ sys_numvp(void){
 
   struct proc* pr = myproc();
 
-  return ((pr->sz / PGSIZE) + 1);
+  return (pr->sz / PGSIZE);
 }
 
 // returns number of physical pages in userspace
