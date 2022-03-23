@@ -98,6 +98,8 @@ trap(struct trapframe *tf)
       break;
     }
 
+    switchuvm(myproc());
+
     // if (newsz <= myproc()->sz){
     //   cprintf("alloc go well? : %d\n", allocuvm(myproc()->pgdir, oldsz, newsz));
     //   break;
